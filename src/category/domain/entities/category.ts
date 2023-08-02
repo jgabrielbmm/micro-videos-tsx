@@ -1,3 +1,5 @@
+import { UniqueEntityId } from "../../../@seedwork/domain/unique-entity-id.vo"
+
 export type CategoryProps = {
   name: string,
   description?: string,
@@ -6,7 +8,9 @@ export type CategoryProps = {
 }
 
 export class Category {
-  constructor(public readonly props: CategoryProps) {
+  public readonly id: UniqueEntityId
+  constructor(public readonly props: CategoryProps, id?: UniqueEntityId) {
+    this.id = id || new UniqueEntityId()
     this.description = this.props.description
     this.props.is_active = this.props.is_active ?? true
     this.props.created_at = this.props.created_at ?? new Date()
@@ -19,6 +23,7 @@ export class Category {
   get description() {
     return this.props.description
   }
+
   private set description(value: string) {
     this.props.description = value ?? null
   }
@@ -34,6 +39,5 @@ export class Category {
   get created_at() {
     return this.props.created_at
   }
-
 
 }
